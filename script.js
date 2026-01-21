@@ -9,7 +9,7 @@
 // "slide" - Slide-Up + Fade (Default)
 // "typing" - Typing/Writing Effect
 // "words" - Word-by-Word Reveal
-const HERO_ANIMATION_MODE = "slide";
+const HERO_ANIMATION_MODE = "typing";
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
