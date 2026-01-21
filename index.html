@@ -6,16 +6,23 @@
     <meta name="description" content="M-Crown Nigeria LTD - Driving Brands. Creating Experiences. Growing Customers. Expert experiential marketing, events, and brand activation services.">
     <meta name="keywords" content="experiential marketing, brand activation, events, Nigeria, HoReCa, consumer promotion">
     <title>M-Crown Nigeria LTD | Experiential Marketing & Brand Growth</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23d4af37' d='M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z'/></svg>">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Prevent FOUT (Flash of Unstyled Text) */
+        .logo-text {
+            font-family: 'poppins', sans-serif;
+        }
+    </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header / Navigation -->
-    <header class="header" id="header">
+    <header class="header" id="header" style="display: none;">
         <nav class="navbar container">
             <div class="logo">
                 <div class="crown-icon">
@@ -23,15 +30,16 @@
                 </div>
                 <span class="logo-text">M-Crown</span>
             </div>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu" id="navMenu" style="display: none;">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#why-mcrown" class="nav-link">Why M-Crown</a></li>
+                <li><a href="#mission-vision" class="nav-link">Mission & Vision</a></li>
                 <li><a href="#partners" class="nav-link">Partners</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <a href="#contact" class="btn btn-primary nav-cta">Let's Grow Your Brand</a>
-            <div class="hamburger" id="hamburger">
+            <div class="hamburger" id="hamburger" style="display: none;">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -40,17 +48,27 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero animation-slide" id="home">
         <div class="hero-overlay"></div>
+        
+        <!-- Hero Header -->
+        <div class="hero-header container">
+            <div class="logo">
+                <div class="crown-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <span class="logo-text">M-Crown</span>
+            </div>
+        </div>
+        
         <div class="hero-content container">
-            <h1 class="hero-title animate-fade-in">
-                Driving Brands. Creating Experiences. Growing Customers.
+            <h1 class="hero-title">
+                <span class="hero-title-line" data-line="1">Driving Brands.</span>
+                <span class="hero-title-line" data-line="2">Creating Experiences.</span>
+                <span class="hero-title-line" data-line="3">Growing Customers.</span>
             </h1>
-            <p class="hero-subtitle animate-fade-in">
-                We are Nigeria's premier experiential marketing agency, specializing in brand activations, 
-                consumer promotions, and strategic events that drive real business growth. From HoReCa trade 
-                activations to large-scale concerts, we deliver memorable experiences that convert audiences 
-                into loyal customers.
+            <p class="hero-subtitle">
+                Nigeria's premier experiential marketing agency, delivering high-impact brand activations and events that turn audiences into loyal customers.
             </p>
             <div class="hero-cta animate-fade-in">
                 <a href="#contact" class="btn btn-gold">Talk to Us</a>
@@ -61,6 +79,7 @@
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
+
 
     <!-- Services Section -->
     <section class="services" id="services">
@@ -192,11 +211,11 @@
     </section>
 
     <!-- Bank & Fintech Section -->
-    <section class="fintech-section">
+    <section class="fintech-section" style="background-image: url('assets/images/pos.jpg');">
         <div class="container">
             <div class="fintech-content">
                 <div class="fintech-text">
-                    <h2 class="fintech-title">Are You a Bank or Fintech?</h2>
+                    <h2 class="fintech-title">Are You a Bank, Fintech or Organization?</h2>
                     <p class="fintech-subtitle">
                         We specialize in customer acquisition strategies that drive real growth for financial 
                         institutions. Our proven experiential marketing approach helps you connect with customers 
@@ -233,6 +252,9 @@
         </div>
     </section>
 
+
+    
+
     <!-- Partners Section -->
     <section class="partners" id="partners">
         <div class="container">
@@ -241,18 +263,112 @@
                 <p class="section-subtitle">Working with leading organizations to drive impact</p>
             </div>
 
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <i class="fas fa-hands-helping"></i>
+            <div class="partners-carousel-wrapper">
+                <div class="partners-carousel">
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Save the Children International</h3>
                     </div>
-                    <h3>Save the Children International</h3>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Neat Microcredit</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Rexbhola Nig Enterprise</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Dr. Matt Foundation</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Triple D Concept Ltd</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h3>Tilo's Enterprise</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Ikon Allah Enterprise</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Christokuty Enterprise</h3>
+                    </div>
+                    
+                    <!-- Duplicate for seamless loop -->
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Save the Children International</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Neat Microcredit</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Rexbhola Nig Enterprise</h3>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Dr. Matt Foundation</h3>
+                    </div>
                 </div>
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <i class="fas fa-coins"></i>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision" id="mission-vision">
+        <div class="container">
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-bullseye"></i>
                     </div>
-                    <h3>Neat Microcredit</h3>
+                    <h3 class="mv-title">Mission</h3>
+                    <p class="mv-text">
+                        To provide end-to-end marketing, branding, event, and general contracting solutions 
+                        that help organizations grow, operate efficiently, and achieve lasting impact.
+                    </p>
+                </div>
+
+                <div class="vision-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="mv-title">Vision</h3>
+                    <p class="mv-text">
+                        To be Nigeria's most dependable partner for brand growth and all categories of contract 
+                        execution, recognized for quality, integrity, and results-driven delivery.
+                    </p>
                 </div>
             </div>
         </div>
@@ -343,12 +459,13 @@
                         <li><a href="#services">Services</a></li>
                         <li><a href="#why-mcrown">Why M-Crown</a></li>
                         <li><a href="#partners">Partners</a></li>
+                        <li><a href="#mission-vision">Vision & Mission</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 M-Crown Nigeria LTD. All rights reserved.</p>
+                <p>&copy; <span id="currentYear"></span> M-Crown Nigeria LTD. All rights reserved.</p>
             </div>
         </div>
     </footer>

@@ -2,14 +2,228 @@
 // Smooth Scrolling & Navigation
 // ===================================
 
+// ===================================
+// HERO ANIMATION CONFIGURATION
+// ===================================
+// Change this value to switch animation modes:
+// "slide" - Slide-Up + Fade (Default)
+// "typing" - Typing/Writing Effect
+// "words" - Word-by-Word Reveal
+const HERO_ANIMATION_MODE = "slide";
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    initHeroAnimation();
     initNavigation();
     initScrollAnimations();
     initBackToTop();
     initContactForm();
     initMobileMenu();
+    updateFooterYear();
+    initScrollIndicator();
 });
+
+// ===================================
+// Update Footer Year
+// ===================================
+function updateFooterYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+// ===================================
+// Scroll Indicator
+// ===================================
+function initScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            // Get the next section after hero
+            const heroSection = document.querySelector('.hero');
+            const nextSection = heroSection.nextElementSibling;
+            
+            if (nextSection) {
+                nextSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+        
+        // Add hover cursor pointer
+        scrollIndicator.style.cursor = 'pointer';
+    }
+}
+
+// ===================================
+// Hero Title Animation System
+// ===================================
+
+function initHeroAnimation() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+        // Show everything immediately without animation
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroTitle) heroTitle.style.opacity = '1';
+        if (heroSubtitle) heroSubtitle.style.opacity = '1';
+        return;
+    }
+    
+    // Get the hero section and set the animation class
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+    
+    // Remove all animation classes first
+    heroSection.classList.remove('animation-slide', 'animation-typing', 'animation-words');
+    
+    // Add the selected animation class
+    heroSection.classList.add(`animation-${HERO_ANIMATION_MODE}`);
+    
+    // Run the appropriate animation
+    switch(HERO_ANIMATION_MODE) {
+        case 'typing':
+            runTypingAnimation();
+            break;
+        case 'words':
+            runWordAnimation();
+            break;
+        case 'slide':
+        default:
+            runSlideAnimation();
+            break;
+    }
+}
+
+// ===================================
+// Mode A: Slide-Up + Fade Animation
+// ===================================
+
+function runSlideAnimation() {
+    const lines = document.querySelectorAll('.hero-title-line');
+    const subtitle = document.querySelector('.hero-subtitle');
+    
+    // Trigger animations by adding the 'animated' class
+    lines.forEach((line) => {
+        line.classList.add('animated');
+    });
+    
+    // Animate subtitle after title finishes (600ms after last line starts)
+    if (subtitle) {
+        subtitle.classList.add('animated');
+    }
+}
+
+// ===================================
+// Mode B: Typing Effect Animation
+// ===================================
+
+function runTypingAnimation() {
+    const lines = document.querySelectorAll('.hero-title-line');
+    const subtitle = document.querySelector('.hero-subtitle');
+    const typingSpeed = 50; // milliseconds per character
+    
+    let currentDelay = 0;
+    
+    lines.forEach((line, lineIndex) => {
+        const text = line.textContent;
+        line.textContent = ''; // Clear the text
+        line.classList.add('animated', 'typing');
+        
+        // Type each character
+        setTimeout(() => {
+            typeText(line, text, typingSpeed, () => {
+                // Remove typing class when done
+                line.classList.remove('typing');
+                
+                // Animate subtitle after last line finishes
+                if (lineIndex === lines.length - 1 && subtitle) {
+                    setTimeout(() => {
+                        subtitle.classList.add('animated');
+                    }, 200);
+                }
+            });
+        }, currentDelay);
+        
+        // Calculate delay for next line
+        currentDelay += (text.length * typingSpeed) + 300; // 300ms pause between lines
+    });
+}
+
+function typeText(element, text, speed, callback) {
+    let index = 0;
+    
+    function type() {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        } else if (callback) {
+            callback();
+        }
+    }
+    
+    type();
+}
+
+// ===================================
+// Mode C: Word-by-Word Reveal Animation
+// ===================================
+
+function runWordAnimation() {
+    const lines = document.querySelectorAll('.hero-title-line');
+    const subtitle = document.querySelector('.hero-subtitle');
+    const wordDelay = 100; // milliseconds between words
+    
+    let totalWords = 0;
+    let currentDelay = 0;
+    
+    lines.forEach((line, lineIndex) => {
+        const text = line.textContent;
+        const words = text.split(' ');
+        
+        // Clear the line and prepare for word-by-word reveal
+        line.textContent = '';
+        
+        words.forEach((word, wordIndex) => {
+            // Create a span for each word
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'hero-title-word';
+            wordSpan.textContent = word;
+            line.appendChild(wordSpan);
+            
+            // Add space after word (except for last word)
+            if (wordIndex < words.length - 1) {
+                line.appendChild(document.createTextNode(' '));
+            }
+            
+            // Animate the word
+            setTimeout(() => {
+                wordSpan.classList.add('animated');
+            }, currentDelay);
+            
+            currentDelay += wordDelay;
+            totalWords++;
+        });
+        
+        // Add a small pause between lines
+        if (lineIndex < lines.length - 1) {
+            currentDelay += 200;
+        }
+    });
+    
+    // Animate subtitle after all words finish
+    if (subtitle) {
+        setTimeout(() => {
+            subtitle.classList.add('animated');
+        }, currentDelay + 300);
+    }
+}
 
 // ===================================
 // Navigation Functionality
@@ -29,15 +243,17 @@ function initNavigation() {
     });
     
     // Active link highlighting based on scroll position
-    window.addEventListener('scroll', function() {
+    function updateActiveLink() {
         let current = '';
         const sections = document.querySelectorAll('section[id]');
+        const headerHeight = header.offsetHeight;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
             
-            if (window.scrollY >= sectionTop - 100) {
+            // Adjusted offset to account for header height plus a buffer
+            if (window.scrollY >= (sectionTop - headerHeight - 50)) {
                 current = section.getAttribute('id');
             }
         });
@@ -48,7 +264,9 @@ function initNavigation() {
                 link.classList.add('active');
             }
         });
-    });
+    }
+    
+    window.addEventListener('scroll', updateActiveLink);
     
     // Smooth scroll for all navigation links
     navLinks.forEach(link => {
@@ -58,6 +276,10 @@ function initNavigation() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
+                // Immediately update active state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
                 const headerHeight = header.offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
                 
